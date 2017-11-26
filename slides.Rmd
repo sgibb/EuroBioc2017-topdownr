@@ -1,0 +1,41 @@
+---
+author: "Sebastian Gibb, University Medicine Greifswald"
+title: "`topdownr` - systematic optimisation of protein sequencing for top-down proteomics"
+subtitle: ""
+date: "December 2017"
+output:
+  beamer_presentation:
+    keep_tex: no
+    theme: metropolis
+    slide_level: 1
+    incremental: no
+fontsize: 10pt
+bibliography: slides.bib
+classoption: compress
+header-includes:
+    \hypersetup{colorlinks,citecolor=orange,filecolor=orange,linkcolor=orange,urlcolor=orange}
+    \usepackage[sfdefault]{cabin}
+    \usepackage[T1]{fontenc}
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE, fig.height=5, collapse=TRUE, comment="#")
+suppressPackageStartupMessages(library("RColorBrewer"))
+```
+
+# Introduction
+
+![amino bond, abc and xyz fragments](images/abcxyzmn.pdf)
+
+# Collaborative work
+
+- Pavel V. Shliaha, University of Southern Denmark.
+- Ole Nørregaard Jensen, University of Southern Denmark.
+- Malena Schack Jespersen, University of Southern Denmark.
+- Veit Schwämmle, University of Southern Denmark.
+
+Thank you for your attention!
+
+`biocLite("topdownr")`
+
+(this talk: https://github.com/sgibb/EuroBioc2017-topdownr/")

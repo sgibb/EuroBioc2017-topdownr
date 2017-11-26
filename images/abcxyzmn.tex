@@ -1,0 +1,46 @@
+\documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
+\usepackage{chemfig}
+\begin{document}
+\definecolor{ncolor}{HTML}{1B9E77}
+\definecolor{ccolor}{HTML}{D95F02}
+\definecolor{bcolor}{HTML}{7570B3}
+
+\begin{tikzpicture}
+
+\tikzstyle{nline}=[dashed, very thick, color=ncolor]
+\tikzstyle{ntext}=[color=ncolor]
+\tikzstyle{cline}=[dashed, very thick, color=ccolor]
+\tikzstyle{ctext}=[color=ccolor]
+
+\def\nbrace#1#2{
+\begin{scope}[shift={#1}]
+    \draw[nline] (0, 0) -- (0, -2);
+    \draw[nline] (0, -2) -- (-0.2, -2);
+    \node[ntext, anchor=east, scale=0.8] at (-0.05, -2) {#2};
+\end{scope}
+}
+
+\def\cbrace#1#2{
+\begin{scope}[shift={#1}]
+    \draw[cline] (0, 0) -- (0, 2);
+    \draw[cline] (0, 2) -- (0.2, 2);
+    \node[ctext, anchor=west, scale=0.8] at (0.05, 2) {#2};
+\end{scope}
+}
+
+%\draw[help lines] (0,-3) grid (15,3);
+\node[anchor=west] at (0.25,0.24) {\ldots};
+\node[anchor=west] at (1,0) {\chemfig*{-[:-30](-[:-90]R_m)-[:30](=[:90]O)-[:-30]\chembelow{N}{H}-[:30](-[:90]R_{m+1})-[:-30](=[:-90]O)-[:30]}};
+\node[anchor=east] at (7.75,0.24) {\ldots};
+
+\cbrace{(2.5, 0)}{$x_{n-m}$}
+\nbrace{(2.5, 0)}{$a_m$}
+\cbrace{(3.5, 0)}{$y_{n-m}$}
+\nbrace{(3.5, 0)}{$b_m$}
+\cbrace{(4.5, 0)}{$z_{n-m}$}
+\nbrace{(4.5, 0)}{$c_m$}
+
+\node[ntext, anchor=west] at (0, -2.5) {N-terminus};
+\node[ctext, anchor=east] at (7.75, 2.5) {C-terminus};
+\end{tikzpicture}
+\end{document}
