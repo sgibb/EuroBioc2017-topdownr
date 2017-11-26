@@ -23,11 +23,56 @@ knitr::opts_chunk$set(cache=TRUE, fig.height=5, collapse=TRUE, comment="#")
 suppressPackageStartupMessages(library("RColorBrewer"))
 ```
 
+```{r, topdownrsetup, include=FALSE}
+suppressPackageStartupMessages(library("topdownr"))
+suppressPackageStartupMessages(library("topdownrdata"))
+
+## the mass adduct for a proton
+H <- 1.0078250321
+
+myoglobin <- readTopDownFiles(
+    path = topdownrdata::topDownDataPath("myoglobin"),
+    type = c("a", "b", "c", "x", "y", "z"),
+    ## adducts (add -H/H to c/z and name
+    ## them cmH/zpH (c minus H, z plus H)
+    adducts = data.frame(
+        mass=c(-H, H),
+        to=c("c", "z"),
+        name=c("cmH", "zpH")),
+    modifications = "Met-loss",
+    neutralLoss = NULL,
+    tolerance = 5e-6
+)
+myoglobin <- filterCv(myoglobin, threshold=30)
+myoglobin <- filterInjectionTime(myoglobin, maxDeviation=log2(3))
+myoglobin <- filterIntensity(myoglobin, threshold=0.1)
+myoglobin <- filterNonReplicatedFragments(myoglobin)
+myoglobin <- aggregate(myoglobin)
+myoglobinNcb <- as(myoglobin, "NCBSet")
+```
+
 # Introduction
 
 ![amino bond, abc and xyz fragments](images/abcxyzmn.pdf)
 
-# Collaborative work
+# Fragmentation Map
+
+```{r fragmentationMap, echo=FALSE, fig.height=10, fig.width=15}
+sel <-
+    myoglobin$Mz == 707.3 &
+    myoglobin$AgcTarget == 1e6 &
+    myoglobin$EtdReagentTarget == 1e7
+
+myoglobinNcbSub <- myoglobinNcb[, sel]
+
+fragmentationMap(
+    myoglobinNcbSub,
+    nCombinations = 10,
+    labels = substring(colnames(myoglobinNcbSub), 26, 38)
+)
+```
+
+# Collaborative Work
 
 - Pavel V. Shliaha, University of Southern Denmark.
 - Ole Nørregaard Jensen, University of Southern Denmark.
