@@ -38,4 +38,4 @@ Thank you for your attention!
 
 `biocLite("topdownr")`
 
-(this talk: https://github.com/sgibb/EuroBioc2017-topdownr/")
+(this talk: https://github.com/sgibb/EuroBioc2017-topdownr/)
