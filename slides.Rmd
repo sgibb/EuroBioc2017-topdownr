@@ -1,6 +1,6 @@
 ---
 author: "Sebastian Gibb, University Medicine Greifswald"
-title: "`topdownr` - systematic optimisation of protein sequencing for top-down proteomics"
+title: "`topdownr` - Systematic Optimisation of Protein Sequencing for Top-Down Proteomics"
 subtitle: ""
 date: "December 2017"
 output:
@@ -9,6 +9,7 @@ output:
     theme: metropolis
     slide_level: 1
     incremental: no
+    md_extensions: -implicit_figures
 fontsize: 10pt
 bibliography: slides.bib
 classoption: compress
@@ -20,12 +21,12 @@ header-includes:
 
 ```{r, setup, include=FALSE}
 knitr::opts_chunk$set(cache=TRUE, fig.height=5, collapse=TRUE, comment="#")
-suppressPackageStartupMessages(library("RColorBrewer"))
 ```
 
 ```{r, topdownrsetup, include=FALSE}
 suppressPackageStartupMessages(library("topdownr"))
 suppressPackageStartupMessages(library("topdownrdata"))
+suppressPackageStartupMessages(library("ranger"))
 
 ## the mass adduct for a proton
 H <- 1.0078250321
@@ -49,11 +50,41 @@ myoglobin <- filterIntensity(myoglobin, threshold=0.1)
 myoglobin <- filterNonReplicatedFragments(myoglobin)
 myoglobin <- aggregate(myoglobin)
 myoglobinNcb <- as(myoglobin, "NCBSet")
+## number of fragments
+nFragments <- summary(myoglobin)$Fragments
+
+## features of interest
+foi <- c(
+    "AgcTarget",
+    "EtdReagentTarget",
+    "EtdActivation",
+    "CidActivation",
+    "HcdActivation"
+)
+
+rfTable <- as.data.frame(cbind(
+    scale(as.data.frame(colData(myoglobin)[foi])),
+    Fragments = nFragments
+))
+
+featureImportance <- ranger(
+    Fragments ~ .,
+    data = rfTable,
+    importance = "impurity"
+)$variable.importance
 ```
 
 # Introduction
 
-![amino bond, abc and xyz fragments](images/abcxyzmn.pdf)
+# Top-Down Proteomics
+
+![Top-Down Proteomics](images/topdown.pdf)
+
+
+# ABC/XYZ Fragments
+
+\centering
+![amino bond, abc and xyz fragments](images/abcxyzmn-standalone.pdf)
 
 # Fragmentation Map
 
@@ -72,9 +103,21 @@ fragmentationMap(
 )
 ```
 
+# Important Settings
+
+```{r featureImportance, echo=FALSE, fig.height=10, fig.width=15}
+barplot(
+    featureImportance/sum(featureImportance),
+    cex.names = 1.65,
+    col = c("#E2E2E2", "#E2E2E2", "#23373B", "#E2E2E2", "#23373B"),
+    border = NA
+)
+```
+
 # Collaborative Work
 
 - Pavel V. Shliaha, University of Southern Denmark.
+- Vladimir Gorshkov, University of Southern Denmark.
 - Ole Nørregaard Jensen, University of Southern Denmark.
 - Malena Schack Jespersen, University of Southern Denmark.
 - Veit Schwämmle, University of Southern Denmark.

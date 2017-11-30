@@ -1,11 +1,10 @@
-\documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
-\begin{document}
 \begin{tikzpicture}
+\definecolor{spectrumcolor}{HTML}{23373B}
 
 %\draw[help lines, color=gray, dashed] (0,0) grid (10,10);
 
-\tikzstyle{axis}=[line width=4pt, color=black]
-\tikzstyle{peak}=[line width=4pt, color=black]
+\tikzstyle{axis}=[line width=4pt, color=spectrumcolor]
+\tikzstyle{peak}=[line width=4pt, color=spectrumcolor]
 
 % x-axis
 \draw[axis] (0,0) -- (10,0);
@@ -19,4 +18,3 @@
 \draw[peak] (8,0) -- (8,4);
 
 \end{tikzpicture}
-\end{document}
