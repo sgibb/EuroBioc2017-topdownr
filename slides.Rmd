@@ -2,7 +2,7 @@
 author: "Sebastian Gibb, University Medicine Greifswald"
 title: "`topdownr` - Systematic Optimisation of Protein Sequencing for Top-Down Proteomics"
 subtitle: ""
-date: "December 2017"
+date: "2017-12-05"
 output:
   beamer_presentation:
     keep_tex: no
@@ -15,8 +15,8 @@ bibliography: slides.bib
 classoption: compress
 header-includes:
     \hypersetup{colorlinks,citecolor=orange,filecolor=orange,linkcolor=orange,urlcolor=orange}
-    \usepackage[sfdefault]{cabin}
     \usepackage[T1]{fontenc}
+    \usepackage{chemfig}
 ---
 
 ```{r, setup, include=FALSE}
@@ -74,17 +74,16 @@ featureImportance <- ranger(
 )$variable.importance
 ```
 
-# Introduction
-
-# Top-Down Proteomics
-
-![Top-Down Proteomics](images/topdown.pdf)
-
-
 # ABC/XYZ Fragments
 
 \centering
-![amino bond, abc and xyz fragments](images/abcxyzmn-standalone.pdf)
+\input{images/abcxyzmn.tex}
+
+# Workflow (simplified)
+
+\makebox[0.85\paperwidth][c]{
+\input{images/topdownr-workflow-simplified.tex}
+}
 
 # Fragmentation Map
 
@@ -116,14 +115,19 @@ barplot(
 
 # Collaborative Work
 
-- Pavel V. Shliaha, University of Southern Denmark.
-- Vladimir Gorshkov, University of Southern Denmark.
-- Ole Nørregaard Jensen, University of Southern Denmark.
-- Malena Schack Jespersen, University of Southern Denmark.
-- Veit Schwämmle, University of Southern Denmark.
-
 Thank you for your attention!
 
-`biocLite("topdownr")`
+```{r, eval=FALSE}
+biocLite("topdownr")
+```
+
+github: [\@sgibb](https://github.com/sgibb) /
+twitter: [\@sebastiangibb](https://twitter.com/sebastiangibb)
+
+- Pavel V. Shliaha.
+- Vladimir Gorshkov.
+- Ole Nørregaard Jensen.
+- Malena Schack Jespersen.
+- Veit Schwämmle.
 
 (this talk: https://github.com/sgibb/EuroBioc2017-topdownr/)
