@@ -73,7 +73,7 @@ featureImportance <- ranger(
 )$variable.importance
 ```
 
-# ABC/XYZ Fragments
+# Fragmentation Notation
 
 \centering
 \input{images/abcxyzmn.tex}
