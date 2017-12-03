@@ -73,16 +73,16 @@ featureImportance <- ranger(
 )$variable.importance
 ```
 
-# Fragmentation Notation
-
-\centering
-\input{images/abcxyzmn.tex}
-
 # Workflow (simplified)
 
 \makebox[0.85\paperwidth][c]{
 \input{images/topdownr-workflow-simplified.tex}
 }
+
+# Fragmentation Notation
+
+\centering
+\input{images/abcxyzmn.tex}
 
 # Fragmentation Map
 
